@@ -13,12 +13,18 @@
 
 @implementation AppDelegate
 
+static OTAcceleratorSession *sharedSession;
+
+- (OTAcceleratorSession *)getSharedAcceleratorSession {
+    return sharedSession;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   // Override point for customization after application launch.
     
-    [OTAcceleratorSession setOpenTokApiKey:@"<# Replace #>"
-                                 sessionId:@"<# Replace #>"
-                                     token:@"<# Replace #>"];
+    sharedSession = [[OTAcceleratorSession alloc] initWithOpenTokApiKey:<#apikey#>
+                                                              sessionId:<#sessionid#>
+                                                                  token:<#token#>];
   return YES;
 }
 

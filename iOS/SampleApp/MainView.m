@@ -21,31 +21,31 @@
 @property (weak, nonatomic) IBOutlet UIButton *subscriberVideoButton;
 @property (weak, nonatomic) IBOutlet UIButton *subscriberAudioButton;
 
-@property (nonatomic) UIImageView *subscriberPlaceHolderImageView;
-@property (nonatomic) UIImageView *publisherPlaceHolderImageView;
+//@property (nonatomic) UIImageView *subscriberPlaceHolderImageView;
+//@property (nonatomic) UIImageView *publisherPlaceHolderImageView;
 @end
 
 @implementation MainView
-
-- (UIImageView *)publisherPlaceHolderImageView {
-    if (!_publisherPlaceHolderImageView) {
-        _publisherPlaceHolderImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"avatar"]];
-        _publisherPlaceHolderImageView.backgroundColor = [UIColor clearColor];
-        _publisherPlaceHolderImageView.contentMode = UIViewContentModeScaleAspectFit;
-        _publisherPlaceHolderImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    return _publisherPlaceHolderImageView;
-}
-
-- (UIImageView *)subscriberPlaceHolderImageView {
-    if (!_subscriberPlaceHolderImageView) {
-        _subscriberPlaceHolderImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"avatar"]];
-        _subscriberPlaceHolderImageView.backgroundColor = [UIColor clearColor];
-        _subscriberPlaceHolderImageView.contentMode = UIViewContentModeScaleAspectFit;
-        _subscriberPlaceHolderImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    return _subscriberPlaceHolderImageView;
-}
+//
+//- (UIImageView *)publisherPlaceHolderImageView {
+//    if (!_publisherPlaceHolderImageView) {
+//        _publisherPlaceHolderImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"avatar"]];
+//        _publisherPlaceHolderImageView.backgroundColor = [UIColor clearColor];
+//        _publisherPlaceHolderImageView.contentMode = UIViewContentModeScaleAspectFit;
+//        _publisherPlaceHolderImageView.translatesAutoresizingMaskIntoConstraints = NO;
+//    }
+//    return _publisherPlaceHolderImageView;
+//}
+//
+//- (UIImageView *)subscriberPlaceHolderImageView {
+//    if (!_subscriberPlaceHolderImageView) {
+//        _subscriberPlaceHolderImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"avatar"]];
+//        _subscriberPlaceHolderImageView.backgroundColor = [UIColor clearColor];
+//        _subscriberPlaceHolderImageView.contentMode = UIViewContentModeScaleAspectFit;
+//        _subscriberPlaceHolderImageView.translatesAutoresizingMaskIntoConstraints = NO;
+//    }
+//    return _subscriberPlaceHolderImageView;
+//}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -86,10 +86,10 @@
     [self.publisherView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
-- (void)addPlaceHolderToPublisherView {
-    [self.publisherView addSubview:self.publisherPlaceHolderImageView];
-    [self.publisherPlaceHolderImageView addAttachedLayoutConstantsToSuperview];
-}
+//- (void)addPlaceHolderToPublisherView {
+//    [self.publisherView addSubview:self.publisherPlaceHolderImageView];
+//    [self.publisherPlaceHolderImageView addAttachedLayoutConstantsToSuperview];
+//}
 
 - (void)connectCallHolder:(BOOL)connected {
     if (connected) {
@@ -130,11 +130,11 @@
     [self.subscriberView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
-- (void)addPlaceHolderToSubscriberView {
-    self.subscriberPlaceHolderImageView.frame = self.subscriberView.bounds;
-    [self.subscriberView addSubview:self.subscriberPlaceHolderImageView];
-    [self.subscriberPlaceHolderImageView addAttachedLayoutConstantsToSuperview];
-}
+//- (void)addPlaceHolderToSubscriberView {
+//    self.subscriberPlaceHolderImageView.frame = self.subscriberView.bounds;
+//    [self.subscriberView addSubview:self.subscriberPlaceHolderImageView];
+//    [self.subscriberPlaceHolderImageView addAttachedLayoutConstantsToSuperview];
+//}
 
 - (void)updateSubscriberAudioButton:(BOOL)connected {
     if (connected) {
@@ -160,10 +160,10 @@
 }
 
 #pragma mark - other controls
-- (void)removePlaceHolderImage {
-    [self.publisherPlaceHolderImageView removeFromSuperview];
-    [self.subscriberPlaceHolderImageView removeFromSuperview];
-}
+//- (void)removePlaceHolderImage {
+//    [self.publisherPlaceHolderImageView removeFromSuperview];
+//    [self.subscriberPlaceHolderImageView removeFromSuperview];
+//}
 
 - (void)enableControlButtonsForCall:(BOOL)enabled {
     [self.subscriberAudioButton setEnabled:enabled];
@@ -178,7 +178,7 @@
 
 - (void)resetAllControl {
     [self removePublisherView];
-    [self removePlaceHolderImage];
+//    [self removePlaceHolderImage];
     [self connectCallHolder:NO];
     [self updatePublisherAudio:YES];
     [self updatePublisherVideo:YES];

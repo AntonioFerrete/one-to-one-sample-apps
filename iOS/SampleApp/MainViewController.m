@@ -7,10 +7,11 @@
 #import "MainView.h"
 #import "MainViewController.h"
 #import "OTOneToOneCommunicator.h"
+#import "AppDelegate.h"
 
 #import <SVProgressHUD/SVProgressHUD.h>
 
-@interface MainViewController ()
+@interface MainViewController () <OTOneToOneCommunicatorDataSource>
 @property (nonatomic) MainView *mainView;
 @property (nonatomic) OTOneToOneCommunicator *oneToOneCommunicator;
 @end
@@ -21,7 +22,9 @@
     [super viewDidLoad];
     
     self.mainView = (MainView *)self.view;
-    self.oneToOneCommunicator = [OTOneToOneCommunicator sharedInstance];
+    
+    self.oneToOneCommunicator = [[OTOneToOneCommunicator alloc] initWithName:@"Tokboxer-iOS"];
+    self.oneToOneCommunicator.dataSource = self;
 #if !(TARGET_OS_SIMULATOR)
     [self.mainView showReverseCameraButton];
 #endif
@@ -52,18 +55,14 @@
     
     
     switch (signal) {
-        case OTSessionDidConnect: {
+        case OTPublisherCreated: {
             [SVProgressHUD popActivity];
             [self.mainView connectCallHolder:self.oneToOneCommunicator.isCallEnabled];
             [self.mainView enableControlButtonsForCall:YES];
             [self.mainView addPublisherView:self.oneToOneCommunicator.publisherView];
             break;
         }
-        case OTSessionDidFail:{
-            [SVProgressHUD showErrorWithStatus:@"Problem when connecting."];
-            break;
-        }
-        case OTSessionStreamDestroyed:{
+        case OTPublisherDestroyed:{
             [self.mainView removeSubscriberView];
             break;
         }
@@ -75,36 +74,20 @@
             [SVProgressHUD popActivity];
             break;
         }
-        case OTPublisherStreamCreated: {
-            NSLog(@"Your publishing feed is streaming in OpenTok");
-            break;
-        }
-        case OTPublisherStreamDestroyed: {
-            NSLog(@"Your publishing feed stops streaming in OpenTok");
-            break;
-        }
-        case OTPublisherDidFail:{
-            [SVProgressHUD showErrorWithStatus:@"Problem when publishing."];
-            break;
-        }
         case OTSubscriberDidConnect:{
             if (self.oneToOneCommunicator.subscribeToVideo) {
                 [self.mainView addSubscribeView:self.oneToOneCommunicator.subscriberView];
             }
             else {
-                [self.mainView addPlaceHolderToSubscriberView];
+//                [self.mainView addPlaceHolderToSubscriberView];
             }
-            break;
-        }
-        case OTSubscriberDidFail:{
-            [SVProgressHUD showErrorWithStatus:@"Problem when subscribing."];
             break;
         }
         case OTSubscriberVideoDisabledByBadQuality:
         case OTSubscriberVideoDisabledBySubscriber:
         case OTSubscriberVideoDisabledByPublisher:{
-            [self.mainView removeSubscriberView];
-            [self.mainView addPlaceHolderToSubscriberView];
+//            [self.mainView removeSubscriberView];
+//            [self.mainView addPlaceHolderToSubscriberView];
             break;
         }
         case OTSubscriberVideoEnabledByGoodQuality:
@@ -115,13 +98,13 @@
         }
         case OTSubscriberVideoDisableWarning:{
             self.oneToOneCommunicator.subscribeToVideo = NO;
-            [self.mainView addPlaceHolderToSubscriberView];
+//            [self.mainView addPlaceHolderToSubscriberView];
             [SVProgressHUD showErrorWithStatus:@"Network connection is unstable."];
             break;
         }
         case OTSubscriberVideoDisableWarningLifted:{
             self.oneToOneCommunicator.subscribeToVideo = YES;
-            [self.mainView removePlaceHolderImage];
+//            [self.mainView removePlaceHolderImage];
             break;
         }
         default: break;
@@ -139,8 +122,8 @@
         [self.mainView addPublisherView:self.oneToOneCommunicator.publisherView];
     }
     else {
-        [self.mainView removePublisherView];
-        [self.mainView addPlaceHolderToPublisherView];
+//        [self.mainView removePublisherView];
+//        [self.mainView addPlaceHolderToPublisherView];
     }
     [self.mainView updatePublisherVideo:self.oneToOneCommunicator.publishVideo];
 }
@@ -171,6 +154,11 @@
     [self.mainView performSelector:@selector(showSubscriberControls:)
                         withObject:@(NO)
                         afterDelay:7.0];
+}
+
+#pragma mark - OTOneToOneCommunicatorDataSource
+- (OTAcceleratorSession *)sessionOfOTOneToOneCommunicator:(OTOneToOneCommunicator *)oneToOneCommunicator {
+    return [(AppDelegate*)[[UIApplication sharedApplication] delegate] getSharedAcceleratorSession];
 }
 
 @end

@@ -1,0 +1,21 @@
+PODS:
+  - OpenTok (2.9.2)
+  - OTAcceleratorPackUtil (2.0.0-beta1):
+    - OpenTok (~> 2.9.2)
+    - OTKAnalytics
+  - OTKAnalytics (2.0.0)
+  - SVProgressHUD (2.0.4)
+
+DEPENDENCIES:
+  - OTAcceleratorPackUtil (~> 2.0.0-beta1)
+  - SVProgressHUD
+
+SPEC CHECKSUMS:
+  OpenTok: aa00296d8c48972cbbd18e2e3954955ea6fb9501
+  OTAcceleratorPackUtil: f070984a1f349d8d5122bf739cb34c959ee9e1d6
+  OTKAnalytics: 84121d29f96c9ccdb630890202b6b5fcb6b97756
+  SVProgressHUD: bfde85ed6c573ea802b9cb37894ed9b629034f1b
+
+PODFILE CHECKSUM: 3ed1a9550c93a4863650ceab6c11366c7f0e5dbc
+
+COCOAPODS: 1.1.1
